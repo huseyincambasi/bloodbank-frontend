@@ -1,0 +1,12 @@
+@import "../degiskenler/colors.scss";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+
+.kutu{
+    height: 300px;
+    width: 300px;
+    background-color:$arkaplan;
+    border:5px solid $orange-700;
+}
