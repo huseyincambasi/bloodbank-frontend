@@ -22,12 +22,7 @@ export const Requestblood = () => {
   };
 
   const addTask = async (task) => {
-    await axios.post(`${URL}/api/tasks/`, {      
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(task),});
+    await axios.post(`${URL}/api/tasks/`, JSON.stringify(task));
     getTasks();
   };
 
