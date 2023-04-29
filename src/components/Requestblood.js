@@ -6,6 +6,7 @@ import Header from "./Header";
 import Tasks from "./Tasks";
 import { useState, useEffect } from "react"
 import AddTask from "./AddTask";
+import { URL } from "../App";
 
 export const Requestblood = () => {
   const [showAddTask, setShowAddTask] = useState(false)
@@ -22,8 +23,7 @@ export const Requestblood = () => {
 
   // Fetch Tasks
   const fetchTasks = async () => {
-    //const res = await fetch('http://localhost:5000/tasks')
-    const res = await fetch('http://localhost:8000/tasks/')
+    const res = await fetch(`${URL}/api/tasks/`)
     const data = await res.json()
     console.log(data)
     return data
@@ -31,8 +31,7 @@ export const Requestblood = () => {
 
     // Delete Task
   const deleteTask = async (id) => {
-    //const res = await fetch(`http://localhost:5000/tasks/${id}`, {
-      const res = await fetch(`http://localhost:8000/tasks/${id}/`, {
+      const res = await fetch(`${URL}/api/tasks/${id}`, {
       method: 'DELETE',
     })
     //We should control the response status to decide if we will change the state or not.
@@ -43,8 +42,7 @@ export const Requestblood = () => {
 
     // Add Task
   const addTask = async (task) => {
-    //const res = await fetch('http://localhost:5000/tasks', {
-      const res = await fetch('http://localhost:8000/tasks/', {
+      const res = await fetch(`${URL}/api/tasks/`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',

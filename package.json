@@ -24,7 +24,6 @@
     "eject": "react-scripts eject",
     "server": "json-server --watch db.json --port 5000"
   },
-  "homepage": "https://bloodbank-381819.wm.r.appspot.com/"
   "eslintConfig": {
     "extends": [
       "react-app",

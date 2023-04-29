@@ -13,6 +13,7 @@ import { Donateblood } from './components/Donateblood';
 import { Signup } from './components/SignUp';
 import { Login } from './components/Login';
 
+export const URL = process.env.REACT_APP_SERVER_URL;
 
 function App() {
   return (
