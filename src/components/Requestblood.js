@@ -31,23 +31,22 @@ export const Requestblood = () => {
     getTasks();
   };
 
-  const deleteTask = async (id) => {
-    await axios.delete(`${URL}/api/tasks/${id}`);
+  const deleteTask = async (_id) => {
+    await axios.delete(`${URL}/api/tasks/${_id}/`, {method: 'DELETE'});
     getTasks();
   };
 
   return (<>
     <div className="container">
     <form className="d-flex">
-    <Link to="/">
-            <Button className="me-3" variant="danger"> Go back</Button>
-    </Link>
-    
+      <Link to="/">
+        <Button className="me-3" variant="danger"> Go back</Button>
+      </Link>
     </form>
     
     <Header title="Blood Donation Form"
-     onAdd={() => setShowAddTask(!showAddTask)}
-     showAdd={showAddTask}/>
+      onAdd={() => setShowAddTask(!showAddTask)}
+      showAdd={showAddTask}/>
     {showAddTask && <AddTask onAdd={addTask} />}
     {tasks.length>0 ? <Tasks tasks={tasks} onDelete={deleteTask} />
     :('Nothing to show!')}
