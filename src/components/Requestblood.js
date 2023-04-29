@@ -1,64 +1,40 @@
-
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Button} from "react-bootstrap";
 import { Link } from 'react-router-dom';
-
+import { URL } from "../App";
+import Task from "./Task";
+import AddTask from "./AddTask";
 import Header from "./Header";
 import Tasks from "./Tasks";
-import { useState, useEffect } from "react"
-import AddTask from "./AddTask";
-import { URL } from "../App";
 
 export const Requestblood = () => {
+  const [tasks, setTasks] = useState([]);
   const [showAddTask, setShowAddTask] = useState(false)
-  const [tasks,setTasks]=useState([])
 
   useEffect(() => {
-    const getTasks = async () => {
-      const tasksFromServer = await fetchTasks()
-      setTasks(tasksFromServer)
-    }
+    getTasks();
+  }, []);
 
-    getTasks()
-  }, [])
+  const getTasks = async () => {
+    const { data } = await axios.get(`${URL}/api/tasks`);
+    setTasks(data);
+  };
 
-  // Fetch Tasks
-  const fetchTasks = async () => {
-    const res = await fetch(`${URL}/api/tasks/`)
-    const data = await res.json()
-    console.log(data)
-    return data
-  }
-
-    // Delete Task
-  const deleteTask = async (id) => {
-      const res = await fetch(`${URL}/api/tasks/${id}`, {
-      method: 'DELETE',
-    })
-    //We should control the response status to decide if we will change the state or not.
-    res.status === 200
-      ? setTasks(tasks.filter((task) => task.id !== id))
-      : alert('Error Deleting This Task')
-  }
-
-    // Add Task
   const addTask = async (task) => {
-      const res = await fetch(`${URL}/api/tasks/`, {
+    await axios.post(`${URL}/api/tasks/`, {      
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(task),
-    })
+      body: JSON.stringify(task),});
+    getTasks();
+  };
 
-    const data = await res.json()
-
-    setTasks([...tasks, data])
-
-    // const id = Math.floor(Math.random() * 10000) + 1
-    // const newTask = { id, ...task }
-    // setTasks([...tasks, newTask])
-  }
-    
+  const deleteTask = async (id) => {
+    await axios.delete(`${URL}/api/tasks/${id}`);
+    getTasks();
+  };
 
   return (<>
     <div className="container">
@@ -69,7 +45,7 @@ export const Requestblood = () => {
     
     </form>
     
-    <Header title="Blood Request Form"
+    <Header title="Blood Donation Form"
      onAdd={() => setShowAddTask(!showAddTask)}
      showAdd={showAddTask}/>
     {showAddTask && <AddTask onAdd={addTask} />}
@@ -80,4 +56,4 @@ export const Requestblood = () => {
     
     </>
   )
-}
+};

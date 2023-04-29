@@ -1,7 +1,7 @@
 
 import { Button} from "react-bootstrap";
 import { Link } from 'react-router-dom';
-
+import axios from "axios";
 import Header from "./Header";
 import Tasks from "./Tasks";
 import { useState, useEffect } from "react"
@@ -23,7 +23,7 @@ export const Login = () => {
 
   // Fetch Tasks
   const fetchTasks = async () => {
-    const res = await fetch(`${URL}/api/tasks/`)
+    const res = await axios.get(`${URL}/api/tasks/`)
     const data = await res.json()
 
     return data
@@ -31,7 +31,7 @@ export const Login = () => {
 
     // Delete Task
   const deleteTask = async (id) => {
-    const res = await fetch(`${URL}/api/tasks/${id}`, {
+    const res = await axios.delete(`${URL}/api/tasks/${id}`, {
       method: 'DELETE',
     })
     //We should control the response status to decide if we will change the state or not.
@@ -42,7 +42,7 @@ export const Login = () => {
 
     // Add Task
   const addTask = async (task) => {
-    const res = await fetch(`${URL}/api/tasks/`, {
+    const res = await axios.post(`${URL}/api/tasks/`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
