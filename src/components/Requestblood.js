@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Button} from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import { URL } from "../App";
-import Task from "./Task";
 import AddTask from "./AddTask";
 import Header from "./Header";
 import Tasks from "./Tasks";

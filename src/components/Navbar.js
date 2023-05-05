@@ -22,6 +22,10 @@ export const Navbar = () => {
             <li className="nav-item">
               <Link className='nav-link' to="/donateblood">Donation Request</Link>
             </li>
+            <li className="nav-item">
+              <Link className='nav-link' to="/kanurunleritalep">Kan ve Kan Ürünleri Talebi</Link>
+            </li>
+
           </ul>
         </div>
         <form className="d-flex">

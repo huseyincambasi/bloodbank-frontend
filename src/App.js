@@ -12,6 +12,7 @@ import { Requestblood } from './components/Requestblood';
 import { Donateblood } from './components/Donateblood';
 import { Signup } from './components/SignUp';
 import { Login } from './components/Login';
+import { KanUrunleriTalep } from './components/KanUrunleriTalep';
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -29,6 +30,8 @@ function App() {
           <Route path='/requestblood' element={<Requestblood />} />
 
           <Route path='/donateblood' element={<Donateblood />} />
+
+          <Route path='/kanurunleritalep' element={<KanUrunleriTalep />} />
 
           <Route path='/signup' element={<Signup/>} />
 
