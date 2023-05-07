@@ -8,7 +8,7 @@ export const Table = () => {
     const [data, setData] = useState([]);
 
     const getTableData = async () => {
-        await axios.get(`${URL}/api/blood_requests`).then((res) => {
+        await axios.get(`${URL}/api/blood_requests/`).then((res) => {
             setData(res.data);
         });;
     };
