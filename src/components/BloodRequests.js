@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from "react";
-import { useNavigate} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, Box, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { URL } from "../App";
-import { Link } from 'react-router-dom';
 
-
-
-export const Table = () => {
+export const BloodRequests = () => {
     const [data, setData] = useState([]);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [dialogInputs, setDialogInputs] = useState({
@@ -21,17 +18,16 @@ export const Table = () => {
     });
 
     useEffect(() => {
-        getTableData();
+        getBloodRequestsData();
     }, []);
 
-    const getTableData = async () => {
+    const getBloodRequestsData = async () => {
         await axios.get(`${URL}/api/blood_requests`).then((res) => {
             setData(res.data);
         });
     };
 
     const openDialog = (event, cellValues) => {
-        console.log(cellValues.row._id);
         setDialogOpen(true);
         setDialogInputs((prevState) =>  ({
             ...prevState,
@@ -50,8 +46,6 @@ export const Table = () => {
         }))
     };
 
-    const navigate = useNavigate();
-
     const sendEmail = (e) => {
         e.preventDefault();
         axios.post(`${URL}/api/blood_request/donate_draft/${dialogInputs._id}/`, dialogInputs)
@@ -59,36 +53,30 @@ export const Table = () => {
     }
 
     const columns = [
-        { field : "_id", headerName: "Id", width: 90},
         { field : "name", headerName: "Name", width: 150},
         { field : "surname", headerName: "Surname", width: 150},
         { field : "blood_product_type", headerName: "Blood Product Type", width: 150},
         { field : "city", headerName: "City", width: 150},
         { field : "district", headerName: "District", width: 150},
         { field : "contact_gsm", headerName: "Contact GSM", width: 150},
-        {
-            field: "Print",
+        { field : "donate_blood", headerName: "", width: 150,
             renderCell: (cellValues) => {
-                const onClick = (e) => {
-                    const currentRow = cellValues.row;
-                    //return alert(JSON.stringify(currentRow, null, 4));
-                    return alert(JSON.stringify(currentRow, null, 4));
-                  };
               return (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={onClick}
-                >
-                Details
+                <Button variant="contained" color="primary" onClick={(event) => {openDialog(event, cellValues);}}>
+                    Donate Blood
                 </Button>
               );
             }
           },
-           {
-            field: "Route",
+          { field: "Route", headerName: "", width: 150,
             renderCell: (cellValues) => {
-            return <Link to={`${URL}/api/blood_request/${cellValues.row._id}`}>Link</Link>;
+                return (
+                    <Button variant="contained" color="warning">
+                        <Link style={{textDecoration: "none", color:'inherit'}} to={`/bloodrequest/${cellValues.row._id}`}>
+                            View Details
+                        </Link>
+                    </Button>
+                );
             }
           }, 
     ]
@@ -111,7 +99,7 @@ export const Table = () => {
                 </Typography>
 
                 <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-                    <Button variant="contained" href="/addbloodrequest">Add New Blood Request</Button>
+                    <Button variant="contained" href="/bloodrequest">Add New Blood Request</Button>
                 </Box>
                 <DataGrid columns={columns} rows={rows} getRowId={(row) => row._id} pageSize={10} /> 
                 <Dialog open={dialogOpen} onClose={closeDialog}>
