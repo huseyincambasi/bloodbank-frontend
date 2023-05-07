@@ -7,7 +7,7 @@ import { URL } from "../App";
 
 export const BloodRequest = () => {
     const { id } = useParams();
-    console.log(id);
+    const [showSubmitButton, setShowSubmitButton] = useState(true);
     const [inputs, setInputs] = useState({
         _id: "",
         name: "",
@@ -20,7 +20,10 @@ export const BloodRequest = () => {
     });
 
     useEffect(() => {
-        getBloodRequest();
+        if (id !== null && id !== undefined) {
+            getBloodRequest();
+            setShowSubmitButton(false);
+        }
     }, []);
 
     const getBloodRequest = async () => {
@@ -49,9 +52,14 @@ export const BloodRequest = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <Box>
-                    <Typography variant='h6' component='h6' sx={{textAlign:'center', mt:3, mb:3}}>
+                    {showSubmitButton && <Typography variant='h6' component='h6' sx={{textAlign:'center', mt:3, mb:3}}>
                         Add Blood Request
                     </Typography>
+                    }
+                    {!showSubmitButton && <Typography variant='h6' component='h6' sx={{textAlign:'center', mt:3, mb:3}}>
+                        Blood Request Details
+                    </Typography>
+                    }
                     <TextField required name="name" value={inputs.name} onChange={handleChange} label="Name" variant="standard" fullWidth sx={{mb: 3}} />
                     <TextField required name="surname" value={inputs.surname} onChange={handleChange} label="Surname" variant="standard" fullWidth sx={{mb: 3}}/>
                     <FormControl fullWidth>
@@ -65,7 +73,7 @@ export const BloodRequest = () => {
                     <TextField required name="district" value={inputs.district} onChange={handleChange} label="District" variant="standard" fullWidth sx={{mb: 3}} />
                     <TextField required name="contact_gsm" value={inputs.contact_gsm} onChange={handleChange} label="Contact GSM" variant="standard" fullWidth sx={{mb: 3}} />
                     <TextField required name="email_address" value={inputs.email_address} onChange={handleChange} label="Email Address" type="email" variant="standard" fullWidth sx={{mb: 3}}/>                
-                    <Button type="submit">Submit</Button>
+                    {showSubmitButton && <Button type="submit">Submit</Button>}
                 </Box>
             </form>
         </div>
