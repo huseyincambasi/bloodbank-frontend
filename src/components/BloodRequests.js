@@ -55,10 +55,11 @@ export const BloodRequests = () => {
     const columns = [
         { field : "name", headerName: "Name", width: 150},
         { field : "surname", headerName: "Surname", width: 150},
-        { field : "blood_product_type", headerName: "Blood Product Type", width: 150},
         { field : "city", headerName: "City", width: 150},
         { field : "district", headerName: "District", width: 150},
         { field : "contact_gsm", headerName: "Contact GSM", width: 150},
+        { field : "email_address", headerName: "Email Address", width: 250},
+        { field : "blood_product_type", headerName: "Blood Product Type", width: 150},
         { field : "donate_blood", headerName: "", width: 150,
             renderCell: (cellValues) => {
               return (
@@ -85,10 +86,11 @@ export const BloodRequests = () => {
         _id: row._id,
         name: row.name,
         surname: row.surname,
-        blood_product_type: row.blood_product_type,
         city: row.city,
         district: row.district,
         contact_gsm: row.contact_gsm,
+        email_address: row.email_address,
+        blood_product_type: row.blood_product_type,
     }));
 
     return (
