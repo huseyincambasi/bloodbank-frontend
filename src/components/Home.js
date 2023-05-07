@@ -1,5 +1,3 @@
-import { Footer } from './Footer';
-
 export const Home = () => {
   return (
     <body>

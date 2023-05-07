@@ -1,16 +1,26 @@
+import { useState } from "react"
 import axios from "axios";
 
-export const KanUrunleriTalep = () => {
-
+export const BloodRequest = () => {
   return (
     <div>
-      <form>
-        <div>
+      <form onSubmit={(event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        console.log(formData);
+        const data = Object.fromEntries(formData.entries);
+        console.log(data);
+      }}>
+        <fieldset>
           <label>Hastanın</label>
           <div>
             <label htmlFor="adiSoyadi">Adı-Soyadı</label>
-            <input id="adiSoyadi" type="text"></input>
+            <input id="adiSoyadi" name="adiSoyadi" type="text"></input>
           </div>
+        </fieldset>
+        <button type="submit">Submit</button>
+      </form>   
+      <div>
           <div>
             <label htmlFor="protokolNumarasi">Protokol Numarası</label>
             <input id="protokolNumarasi" type="text"></input>
@@ -267,7 +277,8 @@ export const KanUrunleriTalep = () => {
             </div>
           </div>
         </div> 
-      </form>   
+        <button type="submit">Submit</button>
+     
     </div>
   )
 };
