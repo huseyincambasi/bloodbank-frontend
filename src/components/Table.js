@@ -3,6 +3,9 @@ import { Button, Box, Typography } from '@mui/material'
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { URL } from "../App";
+import { Link } from 'react-router-dom';
+
+
 
 export const Table = () => {
     const [data, setData] = useState([]);
@@ -10,7 +13,7 @@ export const Table = () => {
     const getTableData = async () => {
         await axios.get(`${URL}/api/blood_requests`).then((res) => {
             setData(res.data);
-        });;
+        });
     };
 
     useEffect(() => {
@@ -25,6 +28,31 @@ export const Table = () => {
         { field : "city", headerName: "City", width: 150},
         { field : "district", headerName: "District", width: 150},
         { field : "contact_gsm", headerName: "Contact GSM", width: 150},
+        {
+            field: "Print",
+            renderCell: (cellValues) => {
+                const onClick = (e) => {
+                    const currentRow = cellValues.row;
+                    //return alert(JSON.stringify(currentRow, null, 4));
+                    return alert(JSON.stringify(currentRow, null, 4));
+                  };
+              return (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={onClick}
+                >
+                Details
+                </Button>
+              );
+            }
+          },
+           {
+            field: "Route",
+            renderCell: (cellValues) => {
+            return <Link to={`${URL}/api/blood_request/${cellValues.row._id}`}>Link</Link>;
+            }
+          }, 
     ]
 
     const rows = data.map((row) => ({
