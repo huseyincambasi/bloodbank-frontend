@@ -4,7 +4,7 @@ import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, 
 import { Menu as MenuIcon, Bloodtype as BloodtypeIcon} from '@mui/icons-material';
 
 
-const pages = ['bloodrequest', 'table'];
+const pages = ['bloodrequest', 'table', 'addbloodrequest'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export const Navbar = () => {

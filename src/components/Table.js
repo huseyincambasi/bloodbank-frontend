@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
-import { Box, Typography } from '@mui/material'
+import { Button, Box, Typography } from '@mui/material'
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { URL } from "../App";
 
 export const Table = () => {
-    const [pageSize, setPageSize] = useState([]);
     const [data, setData] = useState([]);
 
     const getTableData = async () => {
@@ -16,7 +15,6 @@ export const Table = () => {
 
     useEffect(() => {
         getTableData();
-        setPageSize(5);
     }, []);
 
     const columns = [
@@ -42,11 +40,14 @@ export const Table = () => {
     return (
         <div>
             <Box sx={{height:400, width:'100%'}}>
-                <Typography variant='h3' component='h4' sx={{textAlign:'center', mt:3, mb:3}}>
+                <Typography variant='h3' component='h3' sx={{textAlign:'center', mt:3, mb:3}}>
                     Blood Requests
                 </Typography>
-                <DataGrid columns={columns} rows={rows} getRowId={(row) => row._id} rowsPerPageOptions={[5, 10, 20]}
-                pageSize={pageSize} onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}/> 
+
+                <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+                    <Button variant="contained" href="/addbloodrequest">Add New Blood Request</Button>
+                </Box>
+                <DataGrid columns={columns} rows={rows} getRowId={(row) => row._id} pageSize={10} /> 
             </Box>
         </div>
     )
