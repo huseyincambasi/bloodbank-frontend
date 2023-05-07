@@ -26,7 +26,7 @@ export const AddBloodRequest = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`${URL}/api/blood_requests/`, inputs).then(res => {
+        axios.post(`${URL}/api/add_blood_request/`, inputs).then(res => {
             navigate('/table', {replace: true});
         });
     };
