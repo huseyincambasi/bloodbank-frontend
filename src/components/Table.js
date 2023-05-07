@@ -22,7 +22,7 @@ export const Table = () => {
     }, []);
 
     const getTableData = async () => {
-        await axios.get(`${URL}/api/blood_requests/`).then((res) => {
+        await axios.get(`${URL}/api/blood_requests`).then((res) => {
             setData(res.data);
         });;
     };
