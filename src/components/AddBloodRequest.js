@@ -13,6 +13,7 @@ export const AddBloodRequest = () => {
         city: "",
         district: "",
         contact_gsm: "",
+        email_address: "",
     });
 
     const handleChange = (e) => {
@@ -50,6 +51,7 @@ export const AddBloodRequest = () => {
                     <TextField required name="city" value={inputs.city} onChange={handleChange} label="City" variant="standard" fullWidth sx={{mb: 3}} />
                     <TextField required name="district" value={inputs.district} onChange={handleChange} label="District" variant="standard" fullWidth sx={{mb: 3}} />
                     <TextField required name="contact_gsm" value={inputs.contact_gsm} onChange={handleChange} label="Contact GSM" variant="standard" fullWidth sx={{mb: 3}} />
+                    <TextField required name="email_address" value={inputs.email_address} onChange={handleChange} label="Email Address" type="email" variant="standard" fullWidth sx={{mb: 3}}/>                
                     <Button type="submit">Submit</Button>
                 </Box>
             </form>
