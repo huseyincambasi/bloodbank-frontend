@@ -1,6 +1,6 @@
 export const Home = () => {
   return (
-    <body>
+    <div>
         <main>
         <hr className="featurette-divider"/>
       <section id="about">
@@ -121,7 +121,7 @@ export const Home = () => {
 
 
         </main>
-    </body>
+    </div>
 
 
   )

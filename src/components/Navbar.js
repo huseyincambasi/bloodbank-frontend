@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
-import { Menu as MenuIcon, Bloodtype as BloodtypeIcon, AccountCircleIcon as AccountCircle } from '@mui/icons-material';
+import { Menu as MenuIcon, Bloodtype as BloodtypeIcon} from '@mui/icons-material';
 
 
-const pages = ['BloodRequest', 'Table'];
+const pages = ['bloodrequest', 'table'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export const Navbar = () => {
@@ -93,7 +93,7 @@ export const Navbar = () => {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -104,9 +104,7 @@ export const Navbar = () => {
               textDecoration: 'none',
             }}
           >
-          <Link style={{textDecoration: 'none', color:'inherit'}} to={'/'}>
             Bloodbank
-          </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
