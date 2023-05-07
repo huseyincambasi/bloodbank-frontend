@@ -52,9 +52,7 @@ export const Table = () => {
     const sendEmail = (e) => {
         e.preventDefault();
         axios.post(`${URL}/api/blood_request/donate_draft/${dialogInputs._id}/`, dialogInputs)
-        .then(res => {
-            navigate('/table', {replace: true});
-        });
+        closeDialog();
     }
 
     const columns = [
