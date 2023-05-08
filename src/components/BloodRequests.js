@@ -57,8 +57,9 @@ export const BloodRequests = () => {
         { field : "surname", headerName: "Surname", width: 150},
         { field : "city", headerName: "City", width: 150},
         { field : "district", headerName: "District", width: 150},
-        { field : "contact_gsm", headerName: "Contact GSM", width: 150},
-        { field : "email_address", headerName: "Email Address", width: 250},
+        //{ field : "contact_gsm", headerName: "Contact GSM", width: 150},
+        //{ field : "email_address", headerName: "Email Address", width: 250},
+        { field : "blood_group", headerName: "Blood Group", width: 150},
         { field : "blood_product_type", headerName: "Blood Product Type", width: 150},
         { field : "donate_blood", headerName: "", width: 150,
             renderCell: (cellValues) => {
@@ -88,8 +89,9 @@ export const BloodRequests = () => {
         surname: row.surname,
         city: row.city,
         district: row.district,
-        contact_gsm: row.contact_gsm,
-        email_address: row.email_address,
+        //contact_gsm: row.contact_gsm,
+        //email_address: row.email_address,
+        blood_group: row.blood_group,
         blood_product_type: row.blood_product_type,
     }));
 
