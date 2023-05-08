@@ -35,7 +35,7 @@ export const Navbar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            //href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -45,7 +45,8 @@ export const Navbar = () => {
               textDecoration: 'none',
             }}
           >
-            Bloodbank Management System
+            <Link style={{textDecoration: 'none', color:'inherit'}} to={`/`}>Bloodbank Management System</Link>
+            
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -123,7 +124,7 @@ export const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Koray Kılıç" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
