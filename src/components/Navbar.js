@@ -93,7 +93,6 @@ export const Navbar = () => {
             variant="h5"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -104,7 +103,7 @@ export const Navbar = () => {
               textDecoration: 'none',
             }}
           >
-            Bloodbank
+            <Link style={{textDecoration: 'none', color:'inherit'}} to={`/`}>Bloodbank Management System</Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
