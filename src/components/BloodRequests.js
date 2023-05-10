@@ -103,7 +103,7 @@ export const BloodRequests = () => {
                 </Typography>
 
                 <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-                    <Button variant="contained" ><Link style={{textDecoration: 'none', color:'inherit'}} to={`/bloodrequest`}> Add New Blood Request</Link></Button>
+                    <Button variant="contained" ><Link style={{textDecoration: 'none', color:'inherit'}} to={`/selectproduct`}> Add New Blood Request</Link></Button>
                 </Box>
                 <DataGrid columns={columns} rows={rows} getRowId={(row) => row._id} pageSize={10} /> 
                 <Dialog open={dialogOpen} onClose={closeDialog}>

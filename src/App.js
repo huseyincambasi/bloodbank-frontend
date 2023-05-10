@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { BloodRequests } from './components/BloodRequests';
-import { BloodRequest } from './components/BloodRequest';
+import  BloodRequest  from './components/BloodRequest';
 import { Home } from './components/Home';
 import { Navbar } from './components/Navbar';
+import  SelectProduct  from "./components/SelectProduct";
+
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -16,6 +18,7 @@ function App() {
           <Route path='/bloodrequests' element={<BloodRequests />} />
           <Route path='/bloodrequest' element={<BloodRequest/>} />
           <Route path='/bloodrequest/:id' element={<BloodRequest/>} />
+          <Route path='/selectproduct' element={<SelectProduct/>} />
         </Routes>
       </BrowserRouter>    
     </div>
