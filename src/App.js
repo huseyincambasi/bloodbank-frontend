@@ -8,6 +8,8 @@ import { Home } from "./components/Home";
 import SignUp from "./scenes/signUpPage/";
 import SignIn from "./scenes/signInPage";
 import Navbar from "./scenes/navbar";
+import { BloodRequests } from "components/BloodRequests";
+import { BloodRequest } from "components/BloodRequest";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -25,7 +27,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/view-requests" element={<BloodRequests />} />
+            <Route path='/request/:id' element={<BloodRequest/>} />
+            <Route path='/add-request' element={isAuth ? <BloodRequest/> : <Navigate to="/sign-in" />} />
+            <Route path='/my-requests' element={isAuth ? <BloodRequest/> : <Navigate to="/sign-in" />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>    

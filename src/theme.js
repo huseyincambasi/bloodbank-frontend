@@ -27,6 +27,16 @@ export const colorTokens = {
       800: "#00353F",
       900: "#001519",
     },
+    secondary: {
+      100: "#47824a",
+      500: "#66bb6a",
+      900: "#84c887",
+    },
+    third: {
+      100: "#ffb851",
+      500: "#ffa726",
+      900: "#b2741a",
+    }
   };
   
   // mui theme settings
@@ -60,6 +70,16 @@ export const colorTokens = {
                 dark: colorTokens.primary[700],
                 main: colorTokens.primary[500],
                 light: colorTokens.primary[50],
+              },
+              secondary: {
+                dark: colorTokens.secondary[100],
+                main: colorTokens.secondary[500],
+                light: colorTokens.secondary[900],
+              },
+              third: {
+                dark: colorTokens.third[100],
+                main: colorTokens.third[500],
+                light: colorTokens.third[900],
               },
               neutral: {
                 dark: colorTokens.grey[700],
