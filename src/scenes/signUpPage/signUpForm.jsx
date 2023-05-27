@@ -1,105 +1,88 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { Formik } from "formik";
-import { Box, Button, TextField, useMediaQuery, Typography, useTheme} from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import * as yup from "yup";
-import Dropzone from "react-dropzone";
-import { URL } from "../../App";
-import FlexBetween from "../../components/FlexBetween";
-
-const signUpSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  password: yup.string().required("required"),
-  location: yup.string().required("required"),
-  occupation: yup.string().required("required"),
-  picture: yup.string().required("required"),
-});
-
-const initialValuesSignUp = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  location: "",
-  occupation: "",
-  picture: "",
-};
+import dayjs from 'dayjs';
+import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField, Typography, useMediaQuery, useTheme} from "@mui/material";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import BloodGroup from "components/BloodGroup";
+import { URL } from "App";
 
 const SignUpForm = () => {
-  const [error, setError] = useState("");
-  const { palette } = useTheme();
+  const theme = useTheme();
+  const isNonMobileScreens = useMediaQuery("(min-width: 600px)");
   const navigate = useNavigate();
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const [error, setError] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState(null);
+  const [dateOfLastDonation, setDateOfLastDonation] = useState(null);
+  const [newRequestNotification, setNewRequestNotification] = useState(false);
+  const [regularNotification, setRegularNotification] = useState(false);
   const isError = error !== "";
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    bloodGroup: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    city: "",
+    district: "",
+  });
 
-  const handleFormSubmit = async (values, onSubmitProps) => {
-    const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
-    formData.append("picturePath", values.picture.name);
-
-    axios.post(`${URL}/api/register/`, formData)
-    .then(function () {
-      navigate("/sign-in");
-    })
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    axios.post(`${URL}/api/register/`, {...user, dateOfBirth : dateOfBirth, dateOfLastDonation: dateOfLastDonation, newRequestNotification:newRequestNotification, regularNotification:regularNotification})
+    .then(() => navigate("/sign-in"))
     .catch(function (error) {
       setError(error.response.data.error);
-      onSubmitProps.resetForm();
     });
   };
 
+  const handleChange = (e) => {
+    setUser((prevState) =>  ({        
+        ...prevState,
+        [e.target.name] : e.target.value
+    }))
+};
+
   return (
-    <Formik onSubmit={handleFormSubmit} initialValues={initialValuesSignUp} validationSchema={signUpSchema}>
-      {({values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue, resetForm, }) => (
-        <form onSubmit={handleSubmit}>
-          <Box display="grid" gap="30px" gridTemplateColumns="repeat(4, minmax(0, 1fr))" sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 4" } }}>
-            <TextField label="First Name" onBlur={handleBlur} onChange={handleChange} value={values.firstName} name="firstName" error={Boolean(touched.firstName) && Boolean(errors.firstName)} helperText={touched.firstName && errors.firstName} sx={{ gridColumn: "span 2" }} />
-            <TextField label="Last Name" onBlur={handleBlur} onChange={handleChange} value={values.lastName} name="lastName" error={Boolean(touched.lastName) && Boolean(errors.lastName)} helperText={touched.lastName && errors.lastName} sx={{ gridColumn: "span 2" }} />
-            <TextField label="Location" onBlur={handleBlur} onChange={handleChange} value={values.location} name="location" error={Boolean(touched.location) && Boolean(errors.location)} helperText={touched.location && errors.location} sx={{ gridColumn: "span 4" }} />
-            <TextField label="Occupation" onBlur={handleBlur} onChange={handleChange} value={values.occupation} name="occupation" error={Boolean(touched.occupation) && Boolean(errors.occupation)} helperText={touched.occupation && errors.occupation} sx={{ gridColumn: "span 4" }} />
-            <Box gridColumn="span 4" border={`1px solid ${palette.neutral.medium}`} borderRadius="5px" p="1rem">
-              <Dropzone acceptedFiles=".jpg,.jpeg,.png" multiple={false} onDrop={(acceptedFiles) =>setFieldValue("picture", acceptedFiles[0])}>
-              {({ getRootProps, getInputProps }) => (
-                <Box {...getRootProps()} border={`2px dashed ${palette.primary.main}`} p="1rem" sx={{ "&:hover": { cursor: "pointer" } }}>
-                  <input {...getInputProps()} />
-                  {!values.picture ? 
-                  (
-                    <p>Add Picture Here</p>
-                  ) : 
-                  (
-                    <FlexBetween>
-                      <Typography>{values.picture.name}</Typography>
-                      <EditOutlinedIcon />
-                    </FlexBetween>
-                  )}
-                </Box>
-              )}
-              </Dropzone>
-            </Box>
-            <TextField label="Email" onBlur={handleBlur} onChange={handleChange} value={values.email} name="email" error={Boolean(touched.email) && Boolean(errors.email)} helperText={touched.email && errors.email} sx={{ gridColumn: "span 4" }} />
-            <TextField label="Password" type="password" onBlur={handleBlur} onChange={handleChange} value={values.password} name="password" error={Boolean(touched.password) && Boolean(errors.password)} helperText={touched.password && errors.password} sx={{ gridColumn: "span 4" }} />
-          </Box>
-          <Box>
-            {isError && (<Typography sx={{color: "#ba000d"}}>
-              *{error}    
-            </Typography>)}
-            <Button fullWidth type="submit" sx={{m: "2rem 0", p: "1rem", backgroundColor: palette.primary.main, color: palette.background.alt, "&:hover": { color: palette.primary.main }}}>
-              SIGN UP
-            </Button>
-            <Typography sx={{textDecoration: "underline", color: palette.primary.main, "&:hover": {cursor: "pointer", color: palette.primary.light}}}>
-              <Link style={{textDecoration: "none", color:'inherit'}} to={`/sign-in`}>
-                Already have an account? Login here.
-              </Link>
-            </Typography>
-          </Box>
-        </form>
-      )}
-    </Formik>
+    <form onSubmit={handleFormSubmit}>
+      <Box display="grid" gap="30px" gridTemplateColumns="repeat(4, minmax(0, 1fr))" sx={{"& > div": { gridColumn: isNonMobileScreens ? undefined : "span 4" } }}>
+        <TextField required label="First Name" value={user.firstName} onChange={handleChange} name="firstName" sx={{ gridColumn: "span 2" }} />
+        <TextField required label="Last Name" value={user.lastName} onChange={handleChange} name="lastName" sx={{ gridColumn: "span 2" }} />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker label="Date of Birth" value={dateOfBirth} onChange={(newValue) => setDateOfBirth(newValue !== null ? dayjs(newValue) : null)} sx={{ gridColumn: "span 2" }}/>
+        </LocalizationProvider>
+        <Box sx={{ gridColumn: "span 2" }}>
+          <BloodGroup name="bloodGroup" value={user.bloodGroup} handleChange={handleChange} sx={{ gridColumn: "span 2" }}/>
+        </Box>
+        <TextField required label="City" value={user.city} onChange={handleChange} name="city" sx={{ gridColumn: "span 2" }} />
+        <TextField required label="District" value={user.district} onChange={handleChange} name="district" sx={{ gridColumn: "span 2" }} />
+        <TextField required label="Phone Number" value={user.phoneNumber} onChange={handleChange} name="phoneNumber" sx={{ gridColumn: "span 2" }} />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker label="Date of Last Donation" value={dateOfLastDonation} onChange={(newValue) => setDateOfLastDonation(newValue !== null ? dayjs(newValue) : null)} sx={{ gridColumn: "span 2" }}/>
+        </LocalizationProvider>
+        <TextField required type="email" label="Email" value={user.email} onChange={handleChange} name="email" sx={{ gridColumn: "span 4" }} />
+        <TextField required type="password" label="Password" value={user.password} onChange={handleChange} name="password" sx={{ gridColumn: "span 4" }} />
+        <FormGroup sx={{ gridColumn: "span 4" }}>
+          <FormControlLabel control={<Checkbox checked={newRequestNotification}/>} onChange={(event) => setNewRequestNotification(event.target.checked)} label="I want to receive e-mail notifications about new blood requests." />
+          <FormControlLabel control={<Checkbox checked={regularNotification}/>} onChange={(event) => setRegularNotification(event.target.checked)} label="I want to receive e-mail notifications about regular donation information." />
+        </FormGroup>
+      </Box>
+      <Box>
+        {isError && (<Typography sx={{color: "#ba000d"}}>
+          *{error}    
+        </Typography>)}
+        <Button fullWidth type="submit" sx={{m: "2rem 0", p: "1rem", backgroundColor: theme.palette.primary.main, color: theme.palette.background.alt, "&:hover": { color: theme.palette.primary.main }}}>
+          SIGN UP
+        </Button>
+        <Typography sx={{textDecoration: "underline", color: theme.palette.primary.main, "&:hover": {cursor: "pointer", color: theme.palette.primary.light}}}>
+          <Link style={{textDecoration: "none", color:'inherit'}} to={`/sign-in`}>
+            Already have an account? Login here.
+          </Link>
+        </Typography>
+      </Box>
+    </form>
   );
 };
 

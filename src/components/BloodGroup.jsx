@@ -1,10 +1,10 @@
 import { InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 
-const BloodGroup = ({ name, value = '', handleChange }) => {
+const BloodGroup = ({ name, value = '', handleChange, required = false }) => {
   return (
     <FormControl fullWidth>
         <InputLabel id="blood_group_label">Blood Group</InputLabel>
-        <Select labelId="blood_group_label" name={name} value={value} onChange={handleChange} label="Blood Group" fullWidth>
+        <Select required={required} labelId="blood_group_label" name={name} value={value} onChange={handleChange} label="Blood Group" fullWidth>
             <MenuItem value={"A+"}>A+</MenuItem>
             <MenuItem value={"A-"}>A-</MenuItem>
             <MenuItem value={"B+"}>B+</MenuItem>

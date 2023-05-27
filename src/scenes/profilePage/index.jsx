@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField, Typography, useMediaQuery, useTheme} from "@mui/material";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import axios from "axios";
 import dayjs from 'dayjs';
+import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField, Typography, useMediaQuery, useTheme} from "@mui/material";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateField, DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import BloodGroup from "components/BloodGroup";
 import { URL } from "App";
 import { setUser } from "state";
 
 const Profile = () => {
   const theme = useTheme();
-  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const isNonMobileScreens = useMediaQuery("(min-width: 600px)");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const access_token = useSelector((state) => state.access_token);
@@ -83,10 +83,10 @@ const Profile = () => {
               <TextField label="First Name" value={profile.firstName} onChange={handleChange} name="firstName" sx={{ gridColumn: "span 2" }} />
               <TextField label="Last Name" value={profile.lastName} onChange={handleChange} name="lastName" sx={{ gridColumn: "span 2" }} />
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker label="Date of Birth" value={dateOfBirth} onChange={(newValue) => setDateOfBirth(newValue !== null ? dayjs(newValue) : null)} sx={{ gridColumn: "span 2" }}/>
+                <DateField required format="MM-DD-YYYY" label="Date of Birth" value={dateOfBirth} onChange={(newValue) => setDateOfBirth(newValue !== null ? dayjs(newValue) : null)} sx={{ gridColumn: "span 2" }}/>
               </LocalizationProvider>
               <Box sx={{ gridColumn: "span 2" }}>
-                <BloodGroup name="bloodGroup" value={profile.bloodGroup} handleChange={handleChange} sx={{ gridColumn: "span 2" }}/>
+                <BloodGroup name="bloodGroup" value={profile.bloodGroup} handleChange={handleChange} required={true} sx={{ gridColumn: "span 2" }}/>
               </Box>
               <TextField label="Email" disabled value={profile.email} onChange={handleChange} name="email" sx={{ gridColumn: "span 2" }} />
               <TextField label="Phone Number" value={profile.phoneNumber} onChange={handleChange} name="phoneNumber" sx={{ gridColumn: "span 2" }} />
