@@ -5,11 +5,11 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "theme";
 import AddRequest from "scenes/addRequestPage";
-import Home from "scenes/homePage";
-import Navbar from "scenes/navbar";
-import Profile from "scenes/profilePage";
-import SignIn from "scenes/signInPage";
-import SignUp from "scenes/signUpPage/";
+import Home from "scenes/Home";
+import Navbar from "scenes/Navbar";
+import Profile from "scenes/Profile";
+import SignIn from "scenes/SignIn";
+import SignUp from "scenes/SignUp";
 import ViewRequests from "scenes/viewRequestsPage";
 
 export const URL = process.env.REACT_APP_SERVER_URL;

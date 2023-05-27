@@ -5,7 +5,7 @@ import axios from "axios";
 import dayjs from 'dayjs';
 import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField, Typography, useMediaQuery, useTheme} from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateField, DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import BloodGroup from "components/BloodGroup";
 import { URL } from "App";
 import { setUser } from "state";
@@ -33,19 +33,18 @@ const Profile = () => {
   });
 
   useEffect(() => {
+    async function getProfileInformation () {
+      await axios.get(`${URL}/api/user/info/`, {headers: {Authorization: 'Bearer ' + access_token}})
+      .then((res) => {
+        setProfile(res.data);
+        setDateOfBirth(res.data.dateOfBirth !== null ? dayjs(res.data.dateOfBirth) : null);
+        setDateOfLastDonation(res.data.dateOfLastDonation !== null ? dayjs(res.data.dateOfLastDonation): null);
+        setNewRequestNotification(res.data.newRequestNotification);
+        setRegularNotification(res.data.regularNotification);
+      });
+    }
     getProfileInformation();
-  }, []);
-
-  const getProfileInformation = async () => {
-    await axios.get(`${URL}/api/user/info/`, {headers: {Authorization: 'Bearer ' + access_token}})
-    .then((res) => {
-      setProfile(res.data);
-      setDateOfBirth(res.data.dateOfBirth !== null ? dayjs(res.data.dateOfBirth) : null);
-      setDateOfLastDonation(res.data.dateOfLastDonation !== null ? dayjs(res.data.dateOfLastDonation): null);
-      setNewRequestNotification(res.data.newRequestNotification);
-      setRegularNotification(res.data.regularNotification);
-    });
-  };
+  }, [access_token]);
 
   const updateProfile = async (e) => {
     e.preventDefault();
@@ -80,18 +79,18 @@ const Profile = () => {
       <form onSubmit={updateProfile}>
         <Box width={isNonMobileScreens ? "50%" : "93%"} p="2rem" m="2rem auto" borderRadius="1.5rem" backgroundColor={theme.palette.background.alt}>
           <Box display="grid" gap="30px" gridTemplateColumns="repeat(4, minmax(0, 1fr))" sx={{"& > div": { gridColumn: isNonMobileScreens ? undefined : "span 4" } }}>
-              <TextField label="First Name" value={profile.firstName} onChange={handleChange} name="firstName" sx={{ gridColumn: "span 2" }} />
-              <TextField label="Last Name" value={profile.lastName} onChange={handleChange} name="lastName" sx={{ gridColumn: "span 2" }} />
+              <TextField required label="First Name" value={profile.firstName} onChange={handleChange} name="firstName" sx={{ gridColumn: "span 2" }} />
+              <TextField required label="Last Name" value={profile.lastName} onChange={handleChange} name="lastName" sx={{ gridColumn: "span 2" }} />
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateField required format="MM-DD-YYYY" label="Date of Birth" value={dateOfBirth} onChange={(newValue) => setDateOfBirth(newValue !== null ? dayjs(newValue) : null)} sx={{ gridColumn: "span 2" }}/>
+                <DatePicker label="Date of Birth" value={dateOfBirth} onChange={(newValue) => setDateOfBirth(newValue !== null ? dayjs(newValue) : null)} sx={{ gridColumn: "span 2" }}/>
               </LocalizationProvider>
               <Box sx={{ gridColumn: "span 2" }}>
                 <BloodGroup name="bloodGroup" value={profile.bloodGroup} handleChange={handleChange} required={true} sx={{ gridColumn: "span 2" }}/>
               </Box>
-              <TextField label="Email" disabled value={profile.email} onChange={handleChange} name="email" sx={{ gridColumn: "span 2" }} />
-              <TextField label="Phone Number" value={profile.phoneNumber} onChange={handleChange} name="phoneNumber" sx={{ gridColumn: "span 2" }} />
-              <TextField label="City" value={profile.city} name="city" onChange={handleChange} sx={{ gridColumn: "span 2" }} />
-              <TextField label="District" value={profile.district} onChange={handleChange} name="district" sx={{ gridColumn: "span 2" }} />
+              <TextField required label="Email" disabled value={profile.email} onChange={handleChange} name="email" sx={{ gridColumn: "span 2" }} />
+              <TextField required label="Phone Number" value={profile.phoneNumber} onChange={handleChange} name="phoneNumber" sx={{ gridColumn: "span 2" }} />
+              <TextField required label="City" value={profile.city} name="city" onChange={handleChange} sx={{ gridColumn: "span 2" }} />
+              <TextField required label="District" value={profile.district} onChange={handleChange} name="district" sx={{ gridColumn: "span 2" }} />
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker label="Date of Last Donation" value={dateOfLastDonation} onChange={(newValue) => setDateOfLastDonation(newValue !== null ? dayjs(newValue): null)} sx={{ gridColumn: "span 2" }}/>
               </LocalizationProvider>
