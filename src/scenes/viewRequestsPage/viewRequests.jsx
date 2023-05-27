@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { Button, Box, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
-import { URL } from "../App";
+import { URL } from "App";
 
-export const BloodRequests = () => {
+const BloodRequests = () => {
     const [data, setData] = useState([]);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [dialogInputs, setDialogInputs] = useState({
@@ -98,13 +98,6 @@ export const BloodRequests = () => {
     return (
         <div>
             <Box sx={{height:400, width:'100%'}}>
-                <Typography variant='h3' component='h3' sx={{textAlign:'center', mt:3, mb:3}}>
-                    Blood Requests
-                </Typography>
-
-                <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-                    <Button variant="contained" ><Link style={{textDecoration: 'none', color:'inherit'}} to={`/selectproduct`}> Add New Blood Request</Link></Button>
-                </Box>
                 <DataGrid columns={columns} rows={rows} getRowId={(row) => row._id} pageSize={10} /> 
                 <Dialog open={dialogOpen} onClose={closeDialog}>
                     <DialogTitle>Donate Blood</DialogTitle>
@@ -128,3 +121,5 @@ export const BloodRequests = () => {
         </div>
     )
 }
+
+export default BloodRequests;

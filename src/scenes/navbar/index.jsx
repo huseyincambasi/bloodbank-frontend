@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Box, IconButton, Link, InputBase, Typography, Select, MenuItem, FormControl, useTheme, useMediaQuery } from "@mui/material";
-import { Message, DarkMode, LightMode, Notifications, Help, Menu, Close } from "@mui/icons-material";
-import { setMode, setLogout } from "state";
+import { Menu, Close } from "@mui/icons-material";
+import { setLogout } from "state";
 import FlexBetween from "components/FlexBetween";
 
 const Navbar = () => {
@@ -19,14 +19,8 @@ const Navbar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
   const user = useSelector((state) => state.user);
-  const isUserLoggedIn = user !== null;  
-  const fullName = isUserLoggedIn ? `${user.firstName} ${user.lastName}` : "";
-
-  const rightLink = {
-    fontSize: 16,
-    color: 'primary',
-    ml: 3,
-  };
+  const isAuth = Boolean(useSelector((state) => state.access_token));
+  const fullName = isAuth ? `${user.firstName} ${user.lastName}` : "";
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -35,38 +29,34 @@ const Navbar = () => {
                 Bloodbank Management System
             </Typography>
             {isNonMobileScreens && (
-            <Typography fontWeight="bold" color="primary" onClick={() => navigate("/")} sx={{"&:hover": {color: primaryLight, cursor: "pointer"}}}>
-                <Link variant="h5" fontWeight="bold" underline="none" href="/view-requests" sx={{ml:3, "&:hover": {color: primaryLight, cursor: "pointer"}}}>
-                    Blood Requests
-                </Link>
+            <Typography fontWeight="bold" variant="h5" color="primary" onClick={() => navigate("/view-requests")} sx={{ml:3, mr:3, "&:hover": {color: primaryLight, cursor: "pointer"}}}>
+                Blood Requests
             </Typography>
             )}
-            {isNonMobileScreens && isUserLoggedIn && (
-            <Typography fontWeight="bold" color="primary" onClick={() => navigate("/")} sx={{"&:hover": {color: primaryLight, cursor: "pointer"}}}>
-                <Link variant="h5" fontWeight="bold" underline="none" href="/add-request" sx={{ml:3, "&:hover": {color: primaryLight, cursor: "pointer"}}}>
-                    Add New Blood Request
-                </Link>
+            {isNonMobileScreens && isAuth && (
+            <Typography fontWeight="bold" variant="h5" color="primary" onClick={() => navigate("/add-request")} sx={{ml:3, mr:3, "&:hover": {color: primaryLight, cursor: "pointer"}}}>
+                Add New Blood Request
             </Typography>
             )}
         </FlexBetween>
 
-        {isNonMobileScreens && !isUserLoggedIn && (
+        {isNonMobileScreens && !isAuth && (
              <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-                <Link variant="h4" fontWeight="bold" underline="none" href="/sign-in" sx={{ml:3, "&:hover": {color: primaryLight, cursor: "pointer"}}}>
+                <Typography fontWeight="bold" variant="h4" color="primary" onClick={() => navigate("/sign-in")} sx={{ml:3, mr:3, "&:hover": {color: primaryLight, cursor: "pointer"}}}>
                     Sign In
-                </Link>
-                <Link variant="h4" fontWeight="bold" underline="none" href="/sign-up" sx={{ml:3, "&:hover": {color: primaryLight, cursor: "pointer"}}}>
+                </Typography>
+                <Typography fontWeight="bold" variant="h4" color="primary" onClick={() => navigate("/sign-up")} sx={{ml:3, mr:3, "&:hover": {color: primaryLight, cursor: "pointer"}}}>
                     Sign Up
-                </Link>
+                </Typography>
            </Box>
         )}
 
-        {isNonMobileScreens && isUserLoggedIn && (
+        {isNonMobileScreens && isAuth && (
             <FlexBetween gap="2rem">
                 <FormControl variant="standard" value={fullName}>
                     <Select value={fullName} sx={{backgroundColor: neutralLight, width: "150px", borderRadius: "0.25rem", p: "0.25rem 1rem", "& .MuiSvgIcon-root": {pr: "0.25rem",width: "3rem",}, "& .MuiSelect-select:focus": {backgroundColor: neutralLight}}} input={<InputBase />}>
-                        <MenuItem onClick={() => navigate("/my-requests")}>Profile</MenuItem>
-                        <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
+                        <MenuItem fontWeight="bold" variant="h4" color="primary" onClick={() => navigate("/my-requests")}>Profile</MenuItem>
+                        <MenuItem fontWeight="bold" variant="h4" color="primary" onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
                     </Select>
                 </FormControl>
             </FlexBetween>
@@ -88,7 +78,7 @@ const Navbar = () => {
                 <Typography variant="h3" fontWeight="bold" color="primary" onClick={() => navigate("/view-requests")} sx={{mb:5}}>
                     Blood Requests
                 </Typography>
-                {isUserLoggedIn && (
+                {isAuth && (
                     <Box>
                         <Typography variant="h3" fontWeight="bold" color="primary" onClick={() => navigate("/add-request")} sx={{mb:5}}>
                             Add New Request
@@ -101,7 +91,7 @@ const Navbar = () => {
                         </Typography>
                     </Box>
                 )} 
-                {!isUserLoggedIn && (
+                {!isAuth && (
                     <Box>
                         <Typography variant="h3" fontWeight="bold" color="primary" onClick={() => navigate("/sign-in")} sx={{mb:5}}>
                             Sign In

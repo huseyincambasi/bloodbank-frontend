@@ -2,10 +2,9 @@ import { useState, useEffect } from "react"
 import { useNavigate, useParams} from 'react-router-dom';
 import { Button, Box, InputLabel, MenuItem, FormControl, TextField, Select, Typography } from '@mui/material'
 import axios from "axios";
-import { URL } from "../App";
+import { URL } from "App";
 
-
-export const Whole = () => {
+const BloodRequest = () => {
     const { id } = useParams();
     const [showSubmitButton, setShowSubmitButton] = useState(true);
     const [inputs, setInputs] = useState({
@@ -53,10 +52,6 @@ export const Whole = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <Box>
-                    {showSubmitButton && <Typography variant='h6' component='h6' sx={{textAlign:'center', mt:3, mb:3}}>
-                        Add Blood Request
-                    </Typography>
-                    }
                     {!showSubmitButton && <Typography variant='h6' component='h6' sx={{textAlign:'center', mt:3, mb:3}}>
                         Blood Request Details
                     </Typography>
@@ -89,9 +84,11 @@ export const Whole = () => {
                         </Select>
                     </FormControl>
                     <TextField required name="number_of_units" value={inputs.number_of_units} onChange={handleChange} label="Number of Units" variant="standard" fullWidth sx={{mb: 3}} inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} />
-                    {showSubmitButton && <Button variant="contained" type="submit">Submit</Button>}
+                    {showSubmitButton && <Button type="submit">Submit</Button>}
                 </Box>
             </form>
         </div>
     )
 }
+
+export default BloodRequest;

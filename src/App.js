@@ -3,20 +3,22 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { themeSettings } from "./theme";
-import { Home } from "./components/Home";
-import SignUp from "./scenes/signUpPage/";
-import SignIn from "./scenes/signInPage";
-import Navbar from "./scenes/navbar";
-import { BloodRequests } from "components/BloodRequests";
-import { BloodRequest } from "components/BloodRequest";
+import { themeSettings } from "theme";
+import AddRequest from "scenes/addRequestPage";
+import Home from "scenes/homePage";
+import Navbar from "scenes/navbar";
+import Profile from "scenes/profilePage";
+import SignIn from "scenes/signInPage";
+import SignUp from "scenes/signUpPage/";
+import ViewRequests from "scenes/viewRequestsPage";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
 function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-  const isAuth = Boolean(useSelector((state) => state.token));
+  const isAuth = Boolean(useSelector((state) => state.access_token));
+
   return (
     <div className="App">
       <BrowserRouter>      
@@ -27,10 +29,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/view-requests" element={<BloodRequests />} />
-            <Route path='/request/:id' element={<BloodRequest/>} />
-            <Route path='/add-request' element={isAuth ? <BloodRequest/> : <Navigate to="/sign-in" />} />
-            <Route path='/my-requests' element={isAuth ? <BloodRequest/> : <Navigate to="/sign-in" />} />
+            <Route path="/view-requests" element={<ViewRequests />} />
+            <Route path='/request/:id' element={<AddRequest/>} />
+            <Route path='/add-request' element={isAuth ? <AddRequest/> : <Navigate to="/sign-in" />} />
+            <Route path='/my-requests' element={isAuth ? <Profile/> : <Navigate to="/sign-in" />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>    
@@ -39,6 +41,3 @@ function App() {
 }
 
 export default App;
-
-//<Route path="/home" element={isAuth ? <HomePage /> : <Navigate to="/" />}/>
-//<Route path="/profile/:userId" element={isAuth ? <ProfilePage /> : <Navigate to="/" />}/>
