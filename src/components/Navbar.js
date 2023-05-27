@@ -7,7 +7,7 @@ import { Menu as MenuIcon, Bloodtype as BloodtypeIcon} from '@mui/icons-material
 const pages = ['bloodrequests'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-export const Navbar = () => {
+export const NavbarOld = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 

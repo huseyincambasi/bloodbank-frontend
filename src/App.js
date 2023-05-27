@@ -7,6 +7,7 @@ import { themeSettings } from "./theme";
 import { Home } from "./components/Home";
 import SignUp from "./scenes/signUpPage/";
 import SignIn from "./scenes/signInPage";
+import Navbar from "./scenes/navbar";
 
 export const URL = process.env.REACT_APP_SERVER_URL;
 
@@ -16,8 +17,9 @@ function App() {
   const isAuth = Boolean(useSelector((state) => state.token));
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter>      
         <ThemeProvider theme={theme}>
+          <Navbar />
           <CssBaseline />
           <Routes>
             <Route path="/" element={<Home />} />
