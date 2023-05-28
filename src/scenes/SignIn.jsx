@@ -28,7 +28,7 @@ const SignIn = () => {
   const isError = error !== "";
 
   const handleFormSubmit = async (values, onSubmitProps) => {
-    axios.post(`${URL}/api/login/`, values)
+    axios.post(`${URL}/api/login`, values)
     .then(function (response) {
       dispatch(
         setLogin({

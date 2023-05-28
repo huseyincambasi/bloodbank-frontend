@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Box, IconButton, InputBase, Typography, Select, MenuItem, FormControl, useTheme, useMediaQuery } from "@mui/material";
@@ -8,6 +8,7 @@ import FlexBetween from "components/FlexBetween";
 
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
+  const [fullName, setFullName] = useState();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,7 +20,10 @@ const Navbar = () => {
   const alt = theme.palette.background.alt;
   const user = useSelector((state) => state.user);
   const isAuth = Boolean(useSelector((state) => state.access_token));
-  const fullName = isAuth ? `${user.firstName} ${user.lastName}` : "";
+
+  useEffect(() => {
+    setFullName(isAuth ? `${user.firstName} ${user.lastName}` : "")  
+  }, [isAuth, user])
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -58,7 +62,7 @@ const Navbar = () => {
         {isNonMobileScreens && isAuth && (
             <FlexBetween gap="2rem">
                 <FormControl variant="standard" value={fullName}>
-                    <Select value={fullName} sx={{backgroundColor: neutralLight, width: "150px", borderRadius: "0.25rem", p: "0.25rem 1rem", "& .MuiSvgIcon-root": {pr: "0.25rem",width: "3rem",}, "& .MuiSelect-select:focus": {backgroundColor: neutralLight}}} input={<InputBase />}>
+                    <Select sx={{backgroundColor: neutralLight, width: "180px", borderRadius: "0.25rem", p: "0.25rem 1rem", "& .MuiSvgIcon-root": {pr: "0.25rem",width: "3rem",}, "& .MuiSelect-select:focus": {backgroundColor: neutralLight}}} input={<InputBase />}>
                         <MenuItem fontWeight="bold" variant="h4" color="primary" onClick={() => navigate("/profile")}>Profile</MenuItem>
                         <MenuItem fontWeight="bold" variant="h4" color="primary" onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
                     </Select>

@@ -48,7 +48,7 @@ const Profile = () => {
 
   const updateProfile = async (e) => {
     e.preventDefault();
-    axios.post(`${URL}/api/user/update/`, {...profile, dateOfBirth : dateOfBirth, dateOfLastDonation: dateOfLastDonation, newRequestNotification:newRequestNotification, regularNotification:regularNotification}, {headers: {Authorization: 'Bearer ' + access_token}})
+    axios.put(`${URL}/api/user/update_info`, {...profile, dateOfBirth : dateOfBirth, dateOfLastDonation: dateOfLastDonation, newRequestNotification:newRequestNotification, regularNotification:regularNotification}, {headers: {Authorization: 'Bearer ' + access_token}})
     .then(function (response) {
       dispatch(
         setUser({

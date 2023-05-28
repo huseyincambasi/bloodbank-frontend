@@ -1,12 +1,16 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid";
 import { URL } from "App";
 
+
 const BloodRequests = (props) => {
+    const access_token = useSelector((state) => state.access_token);
+
     useEffect(() => {
         async function getBloodRequestsData() {
-            await axios.get(`${URL}${props.dataUrl}`, props.headers).then((res) => {
+            await axios.get(`${URL}${props.dataUrl}`, {headers: {Authorization: 'Bearer ' + access_token}}).then((res) => {
                 props.setData(res.data);
             });
         };

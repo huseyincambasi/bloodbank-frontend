@@ -25,7 +25,7 @@ export const authSlice = createSlice({
             state.refresh_token = null;
         },
         setUser: (state, action) => {
-            state.user = action.payload.user;
+            state.user = action.payload;
         },
     },
 });

@@ -23,20 +23,20 @@ const MyRequests = () => {
   }
 
   async function deleteBloodRequest(rowId) {
-    await axios.delete(`${URL}/api/user/blood_requests/${rowId}/delete/`, headers).then((res) => {
+    await axios.delete(`${URL}/api/user/blood_requests/${rowId}/delete`, {headers: {Authorization: 'Bearer ' + access_token}}).then((res) => {
       setData(data.filter((row) => row._id !== rowId));
     });
   };
 
   async function decreaseUnit(rowId) {
-    await axios.patch(`${URL}/api/user/blood_requests/${rowId}/decrease/`, null, headers).then((res) => {
-      setData((rows) => {return rows.map((row) => row._id === rowId ? { ...row, unit: row.unit - 1 } : row);});
+    await axios.patch(`${URL}/api/user/decrease_unit`, {blood_request_id:rowId}, {headers: {Authorization: 'Bearer ' + access_token}}).then((res) => {
+      setData((rows) => {return rows.map((row) => row._id === rowId ? { ...row, unit: res.data.unit } : row);});
     });    
   };
 
   async function increaseUnit(rowId) {
-    await axios.patch(`${URL}/api/user/blood_requests/${rowId}/increase/`, null, headers).then((res) => {
-      setData((rows) => {return rows.map((row) => row._id === rowId ? { ...row, unit: row.unit + 1 } : row);});
+    await axios.patch(`${URL}/api/user/increase_unit`, {blood_request_id:rowId}, {headers: {Authorization: 'Bearer ' + access_token}}).then((res) => {
+      setData((rows) => {return rows.map((row) => row._id === rowId ? { ...row, unit: res.data.unit } : row);});
     });
   };
 

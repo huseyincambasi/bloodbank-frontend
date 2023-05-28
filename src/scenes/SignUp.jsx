@@ -31,7 +31,7 @@ const SignUp = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    axios.post(`${URL}/api/register/`, {...user, dateOfBirth : dateOfBirth, dateOfLastDonation: dateOfLastDonation, newRequestNotification:newRequestNotification, regularNotification:regularNotification})
+    axios.post(`${URL}/api/register`, {...user, dateOfBirth : dateOfBirth, dateOfLastDonation: dateOfLastDonation, newRequestNotification:newRequestNotification, regularNotification:regularNotification})
     .then(() => navigate("/sign-in"))
     .catch(function (error) {
       setError(error.response.data.error);

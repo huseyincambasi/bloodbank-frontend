@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
 import { useSelector } from "react-redux";
-import { Button, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
+import { Button, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, useTheme } from '@mui/material'
 import axios from "axios";
 import { URL } from "App";
 
 const DonateDialog = (props) => {
+    const theme = useTheme();
     const [dialogOpen, setDialogOpen] = useState(false);
     const [dialogInputs, setDialogInputs] = useState({
         _id: "",
@@ -62,7 +63,7 @@ const DonateDialog = (props) => {
 
     const sendEmail = (e) => {
         e.preventDefault();
-        axios.post(`${URL}/api/blood_request/donate_draft/${dialogInputs._id}/`, dialogInputs)
+        axios.post(`${URL}/api/blood_request/donate/${dialogInputs._id}/`, dialogInputs)
         closeDialog();
     }
 
@@ -82,8 +83,12 @@ const DonateDialog = (props) => {
                     <TextField disabled={isAuth} required margin="dense" name="email" value={dialogInputs.email} onChange={handleChange} label="Email" type="email" variant="standard" fullWidth sx={{mb: 3}}/>                
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={closeDialog}>Cancel</Button>
-                    <Button type="submit" onClick={sendEmail}>Donate</Button>
+                    <Button onClick={closeDialog} sx={{m: "2rem 0", p: "1rem", backgroundColor: theme.palette.primary.main, color: theme.palette.background.alt, "&:hover": { color: theme.palette.primary.main }}}>
+                        Cancel
+                    </Button>                  
+                    <Button type="submit" onClick={sendEmail} sx={{m: "2rem 0", p: "1rem", backgroundColor: theme.palette.primary.main, color: theme.palette.background.alt, "&:hover": { color: theme.palette.primary.main }}}>
+                        Donate
+                    </Button>
                 </DialogActions>
             </Dialog>
         </Box>

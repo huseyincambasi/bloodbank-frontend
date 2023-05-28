@@ -14,7 +14,7 @@ const AddRequest = () => {
     email: "",
     blood_product_type: "",
     blood_group: "",
-    unit: "",
+    unit: 0,
   });
   return (
     <Box>
@@ -24,7 +24,7 @@ const AddRequest = () => {
         </Typography>
       </Box>
       <Box width={isNonMobileScreens ? "50%" : "93%"} p="2rem" m="2rem auto" borderRadius="1.5rem" backgroundColor={theme.palette.background.alt}>
-        <BloodRequestForm inputs={inputs} inputsChange={setInputs} url={"/api/user/add_blood_request/"} navigate={"view-requests"} buttonName={"Add Request"}/>
+        <BloodRequestForm inputs={inputs} inputsChange={setInputs} url={"/api/user/add_blood_request"} navigate={"/view-requests"} buttonName={"Add Request"}/>
       </Box>
     </Box>
   );

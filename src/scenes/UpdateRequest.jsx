@@ -39,7 +39,7 @@ const UpdateRequest = () => {
         </Typography>
       </Box>
       <Box width={isNonMobileScreens ? "50%" : "93%"} p="2rem" m="2rem auto" borderRadius="1.5rem" backgroundColor={theme.palette.background.alt}>
-        <BloodRequestForm inputs={inputs} inputsChange={setInputs} url={"/api/user/blood_requests/update"} navigate={"my-requests"} buttonName={"Update Request"}/>
+        <BloodRequestForm inputs={inputs} inputsChange={setInputs} url={`/api/user/blood_requests/${id}/update`} navigate={"/my-requests"} buttonName={"Update Request"}/>
       </Box>
     </Box>
   );
