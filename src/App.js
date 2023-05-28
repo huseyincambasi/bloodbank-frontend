@@ -31,8 +31,9 @@ function App() {
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/view-requests" element={<ViewRequests />} />
-            <Route path='/request/:id' element={<AddRequest/>} />
+            <Route path='/view-request/:id' element={<AddRequest/>} />
             <Route path='/add-request' element={isAuth ? <AddRequest/> : <Navigate to="/sign-in" />} />
+            <Route path='/update-request/:id' element={<AddRequest/>} />
             <Route path='/my-requests' element={isAuth ? <MyRequests/> : <Navigate to="/sign-in" />} />
             <Route path='/profile' element={isAuth ? <Profile/> : <Navigate to="/sign-in" />} />
           </Routes>
