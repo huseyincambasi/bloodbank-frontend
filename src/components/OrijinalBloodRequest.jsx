@@ -2,10 +2,9 @@ import { useState, useEffect } from "react"
 import { useNavigate, useParams} from 'react-router-dom';
 import { Button, Box, InputLabel, MenuItem, FormControl, TextField, Select, Typography } from '@mui/material'
 import axios from "axios";
-import { URL } from "../App";
+import { URL } from "App";
 
-
-export const BloodRequest = () => {
+const BloodRequest = () => {
     const { id } = useParams();
     const [showSubmitButton, setShowSubmitButton] = useState(true);
     const [inputs, setInputs] = useState({
@@ -53,10 +52,6 @@ export const BloodRequest = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <Box>
-                    {showSubmitButton && <Typography variant='h6' component='h6' sx={{textAlign:'center', mt:3, mb:3}}>
-                        Add Blood Request
-                    </Typography>
-                    }
                     {!showSubmitButton && <Typography variant='h6' component='h6' sx={{textAlign:'center', mt:3, mb:3}}>
                         Blood Request Details
                     </Typography>
@@ -95,3 +90,5 @@ export const BloodRequest = () => {
         </div>
     )
 }
+
+export default BloodRequest;

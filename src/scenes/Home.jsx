@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const Home = () => {
+const Home = () => {
   return (
     <div>
         <main>
@@ -128,3 +128,5 @@ export const Home = () => {
 
   )
 }
+
+export default Home;
