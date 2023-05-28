@@ -63,7 +63,7 @@ const DonateDialog = (props) => {
 
     const sendEmail = (e) => {
         e.preventDefault();
-        axios.post(`${URL}/api/blood_request/donate/${dialogInputs._id}/`, dialogInputs)
+        axios.post(`${URL}/api/blood_requests/${dialogInputs._id}/donate`, dialogInputs)
         closeDialog();
     }
 

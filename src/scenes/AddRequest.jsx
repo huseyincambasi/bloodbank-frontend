@@ -14,7 +14,7 @@ const AddRequest = () => {
     email: "",
     blood_product_type: "",
     blood_group: "",
-    unit: 0,
+    unit: "",
   });
   return (
     <Box>
