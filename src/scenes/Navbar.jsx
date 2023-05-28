@@ -33,9 +33,14 @@ const Navbar = () => {
             </Typography>
             )}
             {isNonMobileScreens && isAuth && (
-            <Typography fontWeight="bold" variant="h5" color="primary" onClick={() => navigate("/add-request")} sx={{ml:3, mr:3, "&:hover": {color: primaryLight, cursor: "pointer"}}}>
-                Add New Blood Request
-            </Typography>
+                <FlexBetween>
+                    <Typography fontWeight="bold" variant="h5" color="primary" onClick={() => navigate("/add-request")} sx={{ml:3, mr:3, "&:hover": {color: primaryLight, cursor: "pointer"}}}>
+                        Add New Blood Request
+                    </Typography>
+                    <Typography fontWeight="bold" variant="h5" color="primary" onClick={() => navigate("/my-requests")} sx={{ml:3, mr:3, "&:hover": {color: primaryLight, cursor: "pointer"}}}>
+                        My Blood Requests
+                    </Typography>
+                </FlexBetween>
             )}
         </FlexBetween>
 
@@ -54,7 +59,7 @@ const Navbar = () => {
             <FlexBetween gap="2rem">
                 <FormControl variant="standard" value={fullName}>
                     <Select value={fullName} sx={{backgroundColor: neutralLight, width: "150px", borderRadius: "0.25rem", p: "0.25rem 1rem", "& .MuiSvgIcon-root": {pr: "0.25rem",width: "3rem",}, "& .MuiSelect-select:focus": {backgroundColor: neutralLight}}} input={<InputBase />}>
-                        <MenuItem fontWeight="bold" variant="h4" color="primary" onClick={() => navigate("/my-requests")}>Profile</MenuItem>
+                        <MenuItem fontWeight="bold" variant="h4" color="primary" onClick={() => navigate("/profile")}>Profile</MenuItem>
                         <MenuItem fontWeight="bold" variant="h4" color="primary" onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
                     </Select>
                 </FormControl>
@@ -83,6 +88,9 @@ const Navbar = () => {
                             Add New Request
                         </Typography>
                         <Typography variant="h3" fontWeight="bold" color="primary" onClick={() => navigate("/my-requests")} sx={{mb:5}}>
+                            My Blood Requests
+                        </Typography>
+                        <Typography variant="h3" fontWeight="bold" color="primary" onClick={() => navigate("/profile")} sx={{mb:5}}>
                             Profile
                         </Typography>
                         <Typography variant="h3" fontWeight="bold" color="primary" onClick={() => dispatch(setLogout())} sx={{mb:5}}>

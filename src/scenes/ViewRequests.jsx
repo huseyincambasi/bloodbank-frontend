@@ -1,5 +1,5 @@
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
-import BloodRequests from "./viewRequests";
+import BloodRequests from "components/BloodRequests";
 
 const ViewRequests = () => {
   const theme = useTheme();
