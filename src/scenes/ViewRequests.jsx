@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 import { Box, Button, Typography, useTheme, useMediaQuery } from "@mui/material";
-import BaseBloodRequests from "components/BaseBloodRequests";
 import DonateDialog from "components/DonateDialog";
+import BloodRequests from "components/BloodRequests";
 
 const ViewRequests = () => {
     const [selectedRow, setSelectedRow] = useState([]);
@@ -46,7 +46,7 @@ const ViewRequests = () => {
             </Box>
             <Box width={isNonMobileScreens ? "70%" : "93%"} p="2rem" m="2rem auto" borderRadius="1.5rem" backgroundColor={theme.palette.background.alt}>
                 <Box sx={{height:400, width:'100%'}}>
-                    <BaseBloodRequests data={data} setData={pull_data} dataUrl={"/api/blood_requests"} header={null} additionalColumns={additionalColumns}/>
+                    <BloodRequests data={data} setData={pull_data} dataUrl={"/api/blood_requests"} header={null} additionalColumns={additionalColumns}/>
                     <DonateDialog selectedRow={selectedRow}/>
                 </Box>
             </Box>

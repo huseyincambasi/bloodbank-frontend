@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Box, Button, Typography, useTheme, useMediaQuery } from "@mui/material";
-import BaseBloodRequests from "components/BaseBloodRequests";
+import { Box, Button, IconButton, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { North, Delete, Edit, South } from '@mui/icons-material';
+import BloodRequests from "components/BloodRequests";
 import { URL } from "App";
 
 const MyRequests = () => {
@@ -12,6 +14,7 @@ const MyRequests = () => {
   const access_token = useSelector((state) => state.access_token);
   const theme = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const navigate = useNavigate();
   useEffect(() => {
     setHeaders({headers: {Authorization: 'Bearer ' + access_token}});
   }, [access_token]);
@@ -39,41 +42,39 @@ const MyRequests = () => {
   };
 
   const additionalColumns = [
-    { field: "update", headerName: "", width: 80,
+    { field: "update", headerName: "", width: 50,
       renderCell: (cellValues) => {
-          return (
-              <Button variant="contained" color="info">
-                  <Link style={{textDecoration: "none", color:'inherit'}} to={`/update-request/${cellValues.row._id}`}>
-                    Update
-                  </Link>
-              </Button>
+          return (             
+            <IconButton onClick={() => {navigate(`/update-request/${cellValues.row._id}`)}}>
+              <Edit />
+            </IconButton>
           );
       }
     },
-    { field: "delete", headerName: "", width: 80,
+    { field: "delete", headerName: "", width: 50,
       renderCell: (cellValues) => {
           return (
-              <Button variant="contained" color="error" onClick={() => {deleteBloodRequest(cellValues.row._id)}}>
-                Delete
-              </Button>
+            <IconButton onClick={() => {deleteBloodRequest(cellValues.row._id)}}>
+              <Delete />
+            </IconButton>
           );
       }
     },
-    { field: "increase", headerName: "", width: 120,
+    { field: "increase", headerName: "", width: 50,
       renderCell: (cellValues) => {
           return (
-              <Button variant="contained" color="success" onClick={() => {increaseUnit(cellValues.row._id)}}>
-                Increase Unit
-              </Button>
+            <IconButton onClick={() => {increaseUnit(cellValues.row._id)}}>
+              <North />
+            </IconButton>
           );
       }
     }, 
-    { field: "decrease", headerName: "", width: 120,
+    { field: "decrease", headerName: "", width: 50,
       renderCell: (cellValues) => {
           return (
-              <Button variant="contained" color="warning" onClick={() => {decreaseUnit(cellValues.row._id)}}>
-                Decrease Unit
-              </Button>
+            <IconButton onClick={() => {decreaseUnit(cellValues.row._id)}}>
+              <South />
+            </IconButton>
           );
       }
     },  
@@ -86,9 +87,9 @@ const MyRequests = () => {
                   MY BLOOD REQUESTS
               </Typography>
           </Box>
-          <Box width={isNonMobileScreens ? "76%" : "93%"} p="2rem" m="2rem auto" borderRadius="1.5rem" backgroundColor={theme.palette.background.alt}>
+          <Box width={isNonMobileScreens ? "65%" : "93%"} p="2rem" m="2rem auto" borderRadius="1.5rem" backgroundColor={theme.palette.background.alt}>
               <Box sx={{height:400, width:'100%'}}>
-                  <BaseBloodRequests data={data} setData={pull_data} dataUrl={"/api/user/blood_requests"} headers={headers} additionalColumns={additionalColumns}/>
+                  <BloodRequests data={data} setData={pull_data} dataUrl={"/api/user/blood_requests"} headers={headers} additionalColumns={additionalColumns}/>
               </Box>
           </Box>
       </Box>
