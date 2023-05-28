@@ -5,7 +5,7 @@ import DonateDialog from "components/DonateDialog";
 import BloodRequests from "components/BloodRequests";
 
 const ViewRequests = () => {
-    const [selectedRow, setSelectedRow] = useState([]);
+    const [selectedRow, setSelectedRow] = useState(null);
     const theme = useTheme();
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
     const [data, setData] = useState([]);
@@ -47,7 +47,7 @@ const ViewRequests = () => {
             <Box width={isNonMobileScreens ? "70%" : "93%"} p="2rem" m="2rem auto" borderRadius="1.5rem" backgroundColor={theme.palette.background.alt}>
                 <Box sx={{height:400, width:'100%'}}>
                     <BloodRequests data={data} setData={pull_data} dataUrl={"/api/blood_requests"} header={null} additionalColumns={additionalColumns}/>
-                    <DonateDialog selectedRow={selectedRow}/>
+                    <DonateDialog selectedRow={selectedRow} selectedRowChanged={setSelectedRow}/>
                 </Box>
             </Box>
         </Box>

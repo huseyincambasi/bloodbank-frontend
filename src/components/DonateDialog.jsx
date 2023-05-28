@@ -1,30 +1,56 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
+import { useSelector } from "react-redux";
 import { Button, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
-
 import axios from "axios";
 import { URL } from "App";
 
-const DonateDialog = (selectedRow) => {
+const DonateDialog = (props) => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [dialogInputs, setDialogInputs] = useState({
         _id: "",
-        name: "",
-        surname: "",
+        firstName: "",
+        lastName: "",
         address: "",
-        gsm: "",
-        email_address: "",
+        phoneNumber: "",
+        email: "",
     });
 
+    const isAuth = Boolean(useSelector((state) => state.access_token));
+    const user = useSelector((state) => state.user);
     useEffect(() => {
-        setDialogOpen(true);
-        setDialogInputs((prevState) =>  ({
-            ...prevState,
-            ["_id"] : selectedRow
-        }));
-    }, [selectedRow]);
+        if (dialogOpen && isAuth) {
+            setDialogInputs((prevState) =>  ({
+                ...prevState,
+                ["firstName"] : user.firstName,
+                ["lastName"] : user.lastName,
+                ["address"] : `${user.city} - ${user.district}`,
+                ["phoneNumber"] : user.phoneNumber,
+                ["email"] : user.email,
+            }));
+        }
+    }, [dialogOpen, isAuth])
+
+    useEffect(() => {
+        if (props.selectedRow) {
+            setDialogOpen(true);
+            setDialogInputs((prevState) =>  ({
+                ...prevState,
+                ["_id"] : props.selectedRow
+            }));
+        }
+    }, [props.selectedRow]);
 
     const closeDialog = () => {
         setDialogOpen(false);
+        props.selectedRowChanged(null);
+        setDialogInputs({
+            _id: "",
+            firstName: "",
+            lastName: "",
+            address: "",
+            phoneNumber: "",
+            email: "",    
+        });
     };
 
     const handleChange = (e) => {
@@ -49,15 +75,15 @@ const DonateDialog = (selectedRow) => {
                         To donate blood to this patient, please enter your information below. We
                         will forward your information to the person requesting blood via e-mail.
                     </DialogContentText>
-                    <TextField required autoFocus margin="dense" name="name" value={dialogInputs.name} onChange={handleChange} label="Name" variant="standard" fullWidth sx={{mb: 3}} />
-                    <TextField required autoFocus margin="dense" name="surname" value={dialogInputs.surname} onChange={handleChange} label="Surname" variant="standard" fullWidth sx={{mb: 3}}/>
-                    <TextField required autoFocus margin="dense" name="address" value={dialogInputs.address} onChange={handleChange} label="Address" variant="standard" fullWidth sx={{mb: 3}}/>
-                    <TextField required autoFocus margin="dense" name="gsm" value={dialogInputs.gsm} onChange={handleChange} label="GSM" variant="standard" fullWidth sx={{mb: 3}}/>
-                    <TextField required autoFocus margin="dense" name="email_address" value={dialogInputs.email_address} onChange={handleChange} label="Email Address" type="email" variant="standard" fullWidth sx={{mb: 3}}/>                
+                    <TextField disabled={isAuth} required margin="dense" name="firstName" value={dialogInputs.firstName} onChange={handleChange} label="First Name" variant="standard" fullWidth sx={{mb: 3}} />
+                    <TextField disabled={isAuth} required margin="dense" name="lastName" value={dialogInputs.lastName} onChange={handleChange} label="Last Name" variant="standard" fullWidth sx={{mb: 3}}/>
+                    <TextField disabled={isAuth} required margin="dense" name="address" value={dialogInputs.address} onChange={handleChange} label="Address" variant="standard" fullWidth sx={{mb: 3}}/>
+                    <TextField disabled={isAuth} required margin="dense" name="phoneNumber" value={dialogInputs.phoneNumber} onChange={handleChange} label="Phone Number" variant="standard" fullWidth sx={{mb: 3}}/>
+                    <TextField disabled={isAuth} required margin="dense" name="email" value={dialogInputs.email} onChange={handleChange} label="Email" type="email" variant="standard" fullWidth sx={{mb: 3}}/>                
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={closeDialog}>Cancel</Button>
-                    <Button onClick={sendEmail}>Donate</Button>
+                    <Button type="submit" onClick={sendEmail}>Donate</Button>
                 </DialogActions>
             </Dialog>
         </Box>
