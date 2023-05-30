@@ -1,6 +1,12 @@
 import { InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 
-const BloodProduct = ({ name, value = '', handleChange, required = false, disabled = false }) => {
+import { useState,useEffect } from 'react';
+
+const BloodProduct = ({ name, value = '', handleChange, required = false, disabled = false}) => {
+
+  
+
+  
   return (
     <FormControl fullWidth>
         <InputLabel id="blood_product_type_label">Blood Product Type</InputLabel>

@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Box, IconButton, InputBase, Typography, Select, MenuItem, FormControl, useTheme, useMediaQuery } from "@mui/material";
-import { Menu, Close } from "@mui/icons-material";
+import { Box, IconButton, InputBase, Typography, Select, MenuItem, FormControl, useTheme, useMediaQuery, Button } from "@mui/material";
+import { Close } from "@mui/icons-material";
 import { setLogout } from "state";
 import FlexBetween from "components/FlexBetween";
+import { Menu} from "@mui/material";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import MenuList from '@mui/material/MenuList';
+
 
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -24,6 +28,16 @@ const Navbar = () => {
   useEffect(() => {
     setFullName(isAuth ? `${user.firstName} ${user.lastName}` : "")  
   }, [isAuth, user])
+
+  const [menu, setMenu] = useState(null);
+  const open = Boolean(menu);
+  const handleClick = (e) => {
+      setMenu(e.currentTarget);
+  };
+
+  const handleClose = () => {
+    setMenu(null);
+  };
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -60,14 +74,36 @@ const Navbar = () => {
         )}
 
         {isNonMobileScreens && isAuth && (
-            <FlexBetween gap="2rem">
-                <FormControl variant="standard" value={fullName}>
-                    <Select sx={{backgroundColor: neutralLight, width: "180px", borderRadius: "0.25rem", p: "0.25rem 1rem", "& .MuiSvgIcon-root": {pr: "0.25rem",width: "3rem",}, "& .MuiSelect-select:focus": {backgroundColor: neutralLight}}} input={<InputBase />}>
-                        <MenuItem fontWeight="bold" variant="h4" color="primary" onClick={() => navigate("/profile")}>Profile</MenuItem>
-                        <MenuItem fontWeight="bold" variant="h4" color="primary" onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
-                    </Select>
-                </FormControl>
-            </FlexBetween>
+            <div>
+            <Button id="basic-button"
+         
+         aria-haspopup="true"
+         aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+            endIcon={<KeyboardArrowDownIcon />}
+            variant="contained">{user.firstName}</Button>
+            <Menu
+      
+        
+        id="menu"
+        anchorEl={menu}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+        }}
+        
+      >
+    
+    <MenuItem fontWeight="bold" variant="h4" color="primary" onClick={() => {navigate("/profile");handleClose()}}>Profile</MenuItem>
+    <MenuItem fontWeight="bold" variant="h4" color="primary" onClick={() => {dispatch(setLogout());handleClose()}}>Log Out</MenuItem>
+              
+      </Menu>
+
+                    
+                 
+                  </div>
         )}
 
         {!isNonMobileScreens && (
