@@ -109,10 +109,10 @@ const DonateDialog = (props) => {
                 }
             ).catch(
                 (error) => {
-                    if (error === 409) {
+                    if (error.response.status === 409) {
+                        window.alert("You don't fit requirements.");
                         closeDialog();
                     }
-                    closeDialog();
                 }
             )
         }
