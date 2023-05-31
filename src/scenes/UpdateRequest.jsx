@@ -17,7 +17,7 @@ const UpdateRequest = () => {
     email: "",
     blood_product_type: "",
     blood_group: "",
-    unit: "",
+    unit: 1,
   });
   const theme = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
