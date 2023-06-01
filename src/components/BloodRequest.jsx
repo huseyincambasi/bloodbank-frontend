@@ -31,8 +31,8 @@ const BloodRequest = (props) => {
     return (
         
         <Box display="grid" gap="30px" gridTemplateColumns="repeat(4, minmax(0, 1fr))" sx={{"& > div": { gridColumn: isNonMobileScreens ? undefined : "span 4" } }}>
-            <TextField disabled={props.disabled} required name="name" value={props.inputs.name} onChange={handleChange} label="Name" sx={{ gridColumn: "span 2" }} />
-            <TextField disabled={props.disabled} required name="surname" value={props.inputs.surname} onChange={handleChange} label="Surname" sx={{ gridColumn: "span 2" }}/>
+           { !props.disabled && <TextField disabled={props.disabled} required name="name" value={props.inputs.name} onChange={handleChange} label="Name" sx={{ gridColumn: "span 2" }} /> }
+           { !props.disabled && <TextField disabled={props.disabled} required name="surname" value={props.inputs.surname} onChange={handleChange} label="Surname" sx={{ gridColumn: "span 2" }}/> }
             <TextField disabled={props.disabled} required name="city" value={props.inputs.city} onChange={handleChange} label="City"  sx={{ gridColumn: "span 2" }} />
             <TextField disabled={props.disabled} required name="district" value={props.inputs.district} onChange={handleChange} label="District"  sx={{ gridColumn: "span 2" }} />
             <TextField disabled={props.disabled} required name="phone" value={props.inputs.phone} onChange={handleChange} label="Phone" sx={{ gridColumn: "span 2" }} />
