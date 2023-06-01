@@ -25,7 +25,7 @@ const Profile = () => {
   const [profile, setProfile] = useState({
     firstName: "",
     lastName: "",
-    bloodGroup: "",
+    blood_group: "",
     email: "",
     phoneNumber: "",
     city: "",
@@ -48,7 +48,7 @@ const Profile = () => {
 
   const updateProfile = async (e) => {
     e.preventDefault();
-    axios.put(`${URL}/api/user/update_info`, {...profile, dateOfBirth : dateOfBirth, dateOfLastDonation: dateOfLastDonation, newRequestNotification:newRequestNotification, regularNotification:regularNotification}, {headers: {Authorization: 'Bearer ' + access_token}})
+    axios.put(`${URL}/api/user/update_info`, {...profile, dateOfBirth : dateOfBirth, donation_date: dateOfLastDonation, notification:newRequestNotification, regularNotification:regularNotification}, {headers: {Authorization: 'Bearer ' + access_token}})
     .then(function (response) {
       dispatch(
         setUser({
@@ -85,7 +85,7 @@ const Profile = () => {
                 <DatePicker label="Date of Birth" value={dateOfBirth} onChange={(newValue) => setDateOfBirth(newValue !== null ? dayjs(newValue) : null)} sx={{ gridColumn: "span 2" }}/>
               </LocalizationProvider>
               <Box sx={{ gridColumn: "span 2" }}>
-                <BloodGroup name="bloodGroup" value={profile.bloodGroup} handleChange={handleChange} required={true} sx={{ gridColumn: "span 2" }}/>
+                <BloodGroup name="blood_group" value={profile.blood_group} handleChange={handleChange} required={true} sx={{ gridColumn: "span 2" }}/>
               </Box>
               <TextField required label="Email" disabled value={profile.email} onChange={handleChange} name="email" sx={{ gridColumn: "span 2" }} />
               <TextField required label="Phone Number" value={profile.phoneNumber} onChange={handleChange} name="phoneNumber" sx={{ gridColumn: "span 2" }} />

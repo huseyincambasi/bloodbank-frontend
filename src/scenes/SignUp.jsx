@@ -21,7 +21,7 @@ const SignUp = () => {
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
-    bloodGroup: "",
+    blood_group: "",
     email: "",
     password: "",
     phoneNumber: "",
@@ -31,7 +31,7 @@ const SignUp = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    axios.post(`${URL}/api/register`, {...user, dateOfBirth : dateOfBirth, dateOfLastDonation: dateOfLastDonation, newRequestNotification:newRequestNotification, regularNotification:regularNotification})
+    axios.post(`${URL}/api/register`, {...user, dateOfBirth : dateOfBirth, donation_date: dateOfLastDonation, notification:newRequestNotification, regularNotification:regularNotification})
     .then(() => navigate("/sign-in"))
     .catch(function (error) {
       setError(error.response.data.error);
@@ -61,7 +61,7 @@ const SignUp = () => {
                 <DatePicker label="Date of Birth" value={dateOfBirth} onChange={(newValue) => setDateOfBirth(newValue !== null ? dayjs(newValue) : null)} sx={{ gridColumn: "span 2" }}/>
             </LocalizationProvider>
             <Box sx={{ gridColumn: "span 2" }}>
-              <BloodGroup name="bloodGroup" value={user.bloodGroup} handleChange={handleChange} required={true} sx={{ gridColumn: "span 2" }}/>
+              <BloodGroup name="blood_group" value={user.blood_group} handleChange={handleChange} required={true} sx={{ gridColumn: "span 2" }}/>
             </Box>
             <TextField required label="City" value={user.city} onChange={handleChange} name="city" sx={{ gridColumn: "span 2" }} />
             <TextField required label="District" value={user.district} onChange={handleChange} name="district" sx={{ gridColumn: "span 2" }} />
