@@ -36,8 +36,8 @@ const BloodRequests = (props) => {
     }));
 
     const columns2 = [
-        { field : "name", headerName: "Name", width: 120},
-        { field : "surname", headerName: "Surname", width: 120},
+        { field : "name", headerName: "Patient Name", width: 120},
+        { field : "surname", headerName: "Patient Surname", width: 120},
         { field : "city", headerName: "City", width: 120},
         { field : "district", headerName: "District", width: 120},
         { field : "blood_group", headerName: "Blood Group", width: 120},

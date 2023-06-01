@@ -23,7 +23,6 @@ const BloodRequest = (props) => {
             [e.target.name] : e.target.value
         }));
         setProductType(e.target.value);
-        //console.log('sasd');
         console.log(productType);
 
       };
