@@ -35,9 +35,33 @@ const BloodRequests = (props) => {
         unit: row.unit,
     }));
 
-    return (
-        <DataGrid columns={columns} rows={rows} slots={{ toolbar: GridToolbar }} getRowId={(row) => row._id} pageSize={10} />
-    )
+    const columns2 = [
+        { field : "name", headerName: "Patient Name", width: 120},
+        { field : "surname", headerName: "Patient Surname", width: 120},
+        { field : "city", headerName: "City", width: 120},
+        { field : "district", headerName: "District", width: 120},
+        { field : "blood_group", headerName: "Blood Group", width: 120},
+        { field : "blood_product_type", headerName: "Blood Product Type", width: 130},
+        { field : "unit", headerName: "Unit", width: 50},
+        ...props.additionalColumns
+    ]
+
+    const rows2 = props.data.map((row) => ({
+        _id: row._id,
+        name: row.name,
+        surname: row.surname,
+        city: row.city,
+        district: row.district,
+        blood_group: row.blood_group,
+        blood_product_type: row.blood_product_type,
+        unit: row.unit,
+    }));
+
+    return (<>
+        {props.dataUrl==="/api/user/blood_requests" ? <DataGrid columns={columns2} rows={rows2} slots={{ toolbar: GridToolbar }} getRowId={(row) => row._id} pageSize={10} /> :
+            <DataGrid columns={columns} rows={rows} slots={{ toolbar: GridToolbar }} getRowId={(row) => row._id} pageSize={10} /> }
+        </>
+        )
 }
 
 export default BloodRequests;
