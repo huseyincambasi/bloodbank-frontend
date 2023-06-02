@@ -76,12 +76,12 @@ const Navbar = () => {
         {isNonMobileScreens && isAuth && (
             <div>
             <Button id="basic-button"
-         
+            sx={{backgroundColor: theme.palette.primary.main, color: theme.palette.background.alt, "&:hover": { color: theme.palette.primary.main }}}
          aria-haspopup="true"
          aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
+         onClick={handleClick}
             endIcon={<KeyboardArrowDownIcon />}
-            variant="contained">{user.firstName}</Button>
+            variant="contained">{fullName}</Button>
             <Menu
       
         
@@ -91,7 +91,6 @@ const Navbar = () => {
         onClose={handleClose}
         anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'right',
         }}
         
       >
