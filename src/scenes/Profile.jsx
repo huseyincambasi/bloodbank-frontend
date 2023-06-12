@@ -56,6 +56,7 @@ const Profile = () => {
         })
       );
       navigate("/profile");
+      window.alert("Successfully updated");
     })
     .catch(function (error) {
       setError(error.response.data.error);

@@ -27,7 +27,7 @@ const Navbar = () => {
 
   useEffect(() => {
     setFullName(isAuth ? `${user.firstName} ${user.lastName}` : "")  
-  }, [isAuth, user])
+  }, [isAuth])
 
   const [menu, setMenu] = useState(null);
   const open = Boolean(menu);
