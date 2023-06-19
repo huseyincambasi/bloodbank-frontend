@@ -14,6 +14,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+#### `running locally`
+
+After running backend server, create a file called .env and insert the line below.
+REACT_APP_SERVER_URL=http://127.0.0.1:8000
+Note that you might change the backend url as you want. Just configure the address.
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
